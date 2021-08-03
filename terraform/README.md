@@ -21,7 +21,7 @@ Para a configuração de rede, utilizaremos o modulo da AWS:
 
 Aceese a console AWS e em seguida selecione o serviço Cloud9, no ambiente **SEGLAB** clique em **OPEN IDE**:
 
-![CLOUD9_04](../cloud9/images/CLOUD9_04.png)
+![CLOUD9_04](../cloud9/images/CLOUD9_04.PNG)
 
 1.2. Utilizando a ferramenta AWS CLI verifique a configuração de rede, subnet e security groups atuais:
 
