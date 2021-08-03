@@ -2,8 +2,6 @@
 
 Utilizar a estrutura declarativa do terraform para orquestrar a criação de um servidor web linux rodando Nginx ou Apache encapsulados em container Docker;
 
-![terraform-aws](images/terraform-aws.png)
-
 # Caracteriísticas:
 
 Neste laboratório o terraform fica responsável por gerenciar os seguintes itens:
@@ -23,20 +21,19 @@ Para a configuração de rede, utilizaremos o modulo da AWS:
 
 Aceese a console AWS e em seguida selecione o serviço Cloud9, no ambiente **SEGLAB** clique em **OPEN IDE**:
 
-![fiap-ide](images/cloud9-ide.jpg)
+![CLOUD9_04](../cloud9/images/CLOUD9_04.png)
 
 1.2. Utilizando a ferramenta AWS CLI verifique a configuração de rede, subnet e security groups atuais:
 
 ```sh
-aws ec2 describe-vpcs
-aws ec2 describe-subnets
-aws ec2 describe-security-groups --output text
+aws ec2 describe-vpcs --query  'Vpcs[].[VpcId, CidrBlock]' --output table
+aws ec2 describe-subnets --query  'Subnets[].[VpcId, AvailabilityZone, CidrBlock]' --output table
 ```
 
-1.3. Acesse o diretório SEGLAB01/terraform/network e inicialize o serviço:
+1.3. Acesse o diretório mba_devsecops/terraform/network e inicialize o serviço:
 
 ```sh
-cd $PWD/SEGLAB01/terraform/network
+cd $PWD/mba_devsecops/terraform/network
 terraform init
 ```
 
@@ -67,13 +64,30 @@ Do you want to perform these actions?
 1.7. Após configurar verifique novamente os recursos de rede disponíveis:
 
 ```sh
-```sh
-aws ec2 describe-vpcs
-aws ec2 describe-subnets
-aws ec2 describe-security-groups --output text
+aws ec2 describe-vpcs --query  'Vpcs[].[VpcId, CidrBlock]' --output table
+aws ec2 describe-subnets --query  'Subnets[].[VpcId, AvailabilityZone, CidrBlock]' --output table
 ```
 
 ---
+
+# Item 2: Configuração de Security Group
+
+Para esta etapa serão configurados os [grupos de segurança](https://github.com/fiapsecdevops/mba_devsecops/tree/main/conceitos/SecurityGroups.md) para entrega das instâncias do projeto via terraform, durante o processo de configuração, utilizaremos o modulo da AWS:
+[https://registry.terraform.io/modules/terraform-aws-modules/security-group/aws/latest](https://registry.terraform.io/modules/terraform-aws-modules/security-group/aws/latest);
+
+2.1. Iniciar o ambiente de Desenvolvimento Remoto:
+
+Aceese a console AWS e em seguida selecione o serviço Cloud9, no ambiente **SEGLAB** clique em **OPEN IDE**;
+
+2.2. No repositório do projeto acesse o diretório firewall e inicialize o terraform:
+
+```sh
+cd $PWD/mba_devsecops/terraform/firewall
+terraform init
+```
+
+---
+
 ##### Fiap - MBA Cyber Security Forensics, Ethical Hacking & DevSecOps
 profhelder.pereira@fiap.com.br
 
