@@ -5,15 +5,15 @@ Nesta configuração você fará a preparação da instância que utilizaremos p
 
 1.1. Acesse a conta destinada ao laboratório conforme os dados enviados por e-mail, no painel de serviços da AWS, utilize a barra de busca na área superior para localizar e selecionar o serviço Cloud9:
 
-![CLOUD9_00](images/CLOUD9_00.png)
+![CLOUD9_00](images/CLOUD9_00.PNG)
 
 1.2. No menu seguinte escolha a opção **"Create environment"** para começar a configuração da instância que usaremos como ponto de partida para nossos projetos;
 
-![CLOUD9_01](images/CLOUD9_01.png)
+![CLOUD9_01](images/CLOUD9_01.PNG)
 
 1.3. Para o campo **"Name"** faça o preenchimento com **"SEGLAB**, colocar uma description é opcional;
 
-![CLOUD9_02](images/CLOUD9_02.png)
+![CLOUD9_02](images/CLOUD9_02.PNG)
 
 1.4. Preencha o formulário "Configure settings" de criação da instância utilizando os dados abaixo:
 
@@ -25,7 +25,7 @@ Nesta configuração você fará a preparação da instância que utilizaremos p
 
 Qualquer campo não mencionado deve ser mantido com o valor atual do template, ao final do processo configura de acordo com o exemplo abaixo e clique em **Next Step**;
 
-![CLOUD9_03](images/CLOUD9_03.png)
+![CLOUD9_03](images/CLOUD9_03.PNG)
 
 Em seguida clique em **"Create environment"**
 
