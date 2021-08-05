@@ -21,6 +21,7 @@ terraform {
   }
 }
 
+
 data "aws_vpc" "my_vpc" {
   tags = {
     Terraform = "true"
@@ -28,6 +29,7 @@ data "aws_vpc" "my_vpc" {
   }
 }
 
+# Exemplo 1: Construindo um security group com base no modulo http-80 para liberar ingresso na porta 80 de qualquer origem
 module "web_server_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/http-80"
 
@@ -44,18 +46,16 @@ module "web_server_sg" {
   ingress_cidr_blocks = ["0.0.0.0/0"]
 }
 
+# Exemplo 2: Construindo um security group com dois tipos de regras:
+# 1 Reggra de acesso na mesma porta baseada em três ranges fictios de backends;
+# 2 Regra baseada no acesso a porta 3306 com origem no grupo criado anteriomente;
+  
 module "mysql_sg" {
   source = "terraform-aws-modules/security-group/aws//modules/mysql"
 
   name        = "computed-mysql-sg"
   description = "Security group with MySQL/Aurora port open for HTTP security group created above (computed)"
   vpc_id      = data.aws_vpc.my_vpc.id
-
-  tags = {
-    Terraform = "true"
-    Environment = "dev"
-    Tier = "BE"
-  }
 
   ingress_cidr_blocks = local.private_subnets
 

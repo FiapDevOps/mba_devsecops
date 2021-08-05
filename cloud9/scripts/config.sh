@@ -1,12 +1,14 @@
 
 #!/bin/bash
-test -d $HOME/environment/info || mkdir $HOME/environment/info
+test -d $HOME/environment/info || install -d -m 0700 -o ubuntu -g ubuntu $HOME/environment/info
 
 # Identificando o endereco pub da instancia:
-wget -qO- http://ipecho.net/plain | xargs echo > $HOME/environment/info/PUBLIC_IP.txt
+curl -s http://169.254.169.254/latest/meta-data/public-ipv4) -o $HOME/environment/info/PUBLIC_IP.txt && chown ubuntu: $HOME/environment/info/PUBLIC_IP.txt
+curl -s http://169.254.169.254/latest/meta-data/public-hostname) -o $HOME/environment/info/PUBLIC_DNS.txt && chown ubuntu: $HOME/environment/info/PUBLIC_DNS.txt
+
 
 # Resizing para o disco local do ambiente:
-sh ./resize.sh 20 > /dev/null
+sh $HOME/environment/mba_devsecops/cloud9/scripts/resize.sh 20 > /dev/null
 
 # Instalando o docker + docker-compose
 printf "\n Instalando o docker-compose \n"
