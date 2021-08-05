@@ -6,7 +6,7 @@ test -d $HOME/environment/info || mkdir $HOME/environment/info
 wget -qO- http://ipecho.net/plain | xargs echo > $HOME/environment/info/PUBLIC_IP.txt
 
 # Resizing para o disco local do ambiente:
-sh ./resize.sh 20 > /dev/null
+sh $HOME/environment/mba_devsecops/cloud9/scripts/resize.sh 20 > /dev/null
 
 # Instalando o docker + docker-compose
 printf "\n Instalando o docker-compose \n"
