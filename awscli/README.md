@@ -89,6 +89,8 @@ aws ec2 authorize-security-group-ingress --group-id $SECGRP_ID \
      --ip-permissions IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges='[{CidrIp=0.0.0.0/0}]'
 ```
 
+Outros perfis de regras podem ser criados dinâmicamente, neste ponto vale uma olhada na [documentação do projeto](https://docs.aws.amazon.com/cli/latest/reference/ec2/authorize-security-group-ingress.html) ou em alternativas como o uso dos templates de automação para [ansible](https://docs.ansible.com/ansible/latest/collections/amazon/aws/ec2_group_module.html), [terraform](https://registry.terraform.io/modules/terraform-aws-modules/security-group/aws/1.0.0) e [cloud formation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html);
+
 2.7. Finalize o teste anterior aferindo se a instância está disponível:
 
 ```sh
@@ -110,6 +112,18 @@ aws ec2 describe-instances \
 aws ec2 terminate-instances --instance-ids \
    $(aws ec2 describe-instances --query 'Reservations[].Instances[].InstanceId' --filters "Name=tag:Name,Values=Test" --output text)
 ```
+---
+
+## E como ficaria a atuação em outros cloud providers?
+
+![CLI_01](images/CLI_01.PNG)
+
+Conceitualmente o conceito é similar para Azure, GCP, Oracle e Etc, o modelo baseado no uso de APIs com um cliente para manipulação via linha de comando além da interface de usuário segue entre todos os providers de cloud como um mecanismo para entregar agilidade as equipes;
+
+- Na Azure o cliente de linha de comando recebe apenas o nome de "command line" ou [Azure Command-Line Interface (CLI)](https://docs.microsoft.com/en-us/cli/azure/) que oferece recursos similares para [criação e manipulação de instâncias](https://docs.microsoft.com/pt-br/azure/virtual-network/quick-create-cli) e os grupos assim como na AWS são definidos como [Network Security Groups](https://docs.microsoft.com/pt-br/azure/virtual-network/network-security-groups-overview);
+
+- Já no GCP por exemplo esse cliente de linha de comando é chamado de [GCloud](https://cloud.google.com/sdk/gcloud/reference) e a gestão de regras de acesso análoga aos Security Groups é feita através do recurso de [Firewall das VPCS](https://cloud.google.com/vpc/docs/using-firewalls#gcloud);
+
 ---
 
 ##### Fiap - MBA Cyber Security Forensics, Ethical Hacking & DevSecOps
