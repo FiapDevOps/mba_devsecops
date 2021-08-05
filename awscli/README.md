@@ -70,7 +70,7 @@ AWS_IMAGE_ID=$(aws ec2 describe-images \
     --filters "Name=name,Values=amzn2-ami-hvm-2.0.????????.?-x86_64-gp2" "Name=state,Values=available" \
     --query "reverse(sort_by(Images, &Name))[:1].ImageId" --output text)
     
-printenv | grep AWS
+
 ```
 
 2.5. Com esses dados crie uma instância usando uma chamada na API:
