@@ -3,8 +3,8 @@
 test -d $HOME/environment/info || install -d -m 0700 -o ubuntu -g ubuntu $HOME/environment/info
 
 # Identificando o endereco pub da instancia:
-curl -s http://169.254.169.254/latest/meta-data/public-ipv4) -o $HOME/environment/info/PUBLIC_IP.txt && chown ubuntu: $HOME/environment/info/PUBLIC_IP.txt
-curl -s http://169.254.169.254/latest/meta-data/public-hostname) -o $HOME/environment/info/PUBLIC_DNS.txt && chown ubuntu: $HOME/environment/info/PUBLIC_DNS.txt
+curl -s http://169.254.169.254/latest/meta-data/public-ipv4 -o $HOME/environment/info/PUBLIC_IP.txt && chown ubuntu: $HOME/environment/info/PUBLIC_IP.txt
+curl -s http://169.254.169.254/latest/meta-data/public-hostname -o $HOME/environment/info/PUBLIC_DNS.txt && chown ubuntu: $HOME/environment/info/PUBLIC_DNS.txt
 
 
 # Resizing para o disco local do ambiente:
