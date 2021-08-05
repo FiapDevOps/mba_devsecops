@@ -57,28 +57,30 @@ aws ec2 describe-images \
 2.4. Para facilitar a chamada de criação da instância grave as informações que obtemos a pouco em variaveis:
 
 ```sh
-SUBNET_ID=$(aws ec2 describe-subnets \
+AWS_SUBNET_ID=$(aws ec2 describe-subnets \
     --filters Name='availability-zone',Values='us-east-1a' \
     --query  'Subnets[].[SubnetId]'  --output text)
 
-SECGRP_ID=$(aws ec2 describe-security-groups \
+AWS_SECGRP_ID=$(aws ec2 describe-security-groups \
     --filters Name=group-name,Values=default \
     --query "SecurityGroups[*].[GroupId]" --output text)
 
-IMAGE_ID=$(aws ec2 describe-images \
+AWS_IMAGE_ID=$(aws ec2 describe-images \
     --owners amazon \
     --filters "Name=name,Values=amzn2-ami-hvm-2.0.????????.?-x86_64-gp2" "Name=state,Values=available" \
     --query "reverse(sort_by(Images, &Name))[:1].ImageId" --output text)
+    
+printenv | grep AWS
 ```
 
 2.5. Com esses dados crie uma instância usando uma chamada na API:
 
 ```sh
-$ aws ec2 run-instances \
+aws ec2 run-instances \
     --count 1 --instance-type t2.micro \
-    --image-id $IMAGE_ID \
-    --security-group-ids $SECGRP_ID \
-    --subnet-id $SUBNET_ID \
+    --image-id $AWS_IMAGE_ID \
+    --security-group-ids $AWS_SECGRP_ID \
+    --subnet-id $AWS_SUBNET_ID \
     --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=Test}]'
 ```
 
