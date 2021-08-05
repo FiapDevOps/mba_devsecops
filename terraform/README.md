@@ -6,11 +6,10 @@ Utilizar a estrutura declarativa do terraform para orquestrar a criação de um 
 
 Neste laboratório o terraform fica responsável por gerenciar os seguintes itens:
 
+- Entender o conceito de orquestração utilizando o terraform para configuração de rede;
+- Criação do grupo de segurança e regras de Inbound e Outbound;- 
 - Criação da instância usando sistema operacional linux;
-- Deploy do template responsável por configurar o container Docker;
-- Criação do grupo de segurança e regras de Inbound e Outbound;
-- Criação do endereço ip elástico e vinculo a instância criada;
-- Criação do apontamento de DNS e vinculo ao endereço ip criado;
+- Deploy de um template responsável por configurar um container Docker com uma App de exemplo;
 
 # Item 1: Configuração de Rede
 
