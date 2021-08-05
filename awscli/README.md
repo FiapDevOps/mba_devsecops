@@ -1,6 +1,8 @@
 # Objetivo
 
-Utilizar a estrutura declarativa do terraform para orquestrar a criação de um servidor web linux rodando Nginx ou Apache encapsulados em container Docker;
+Utilizar o cloud9 para explorar conceitos basicos sobre cloud com base no cliente de linha de comando da AWS
+
+![BASH](images/bash-148836_640.png)
 
 # Caracteriísticas:
 
