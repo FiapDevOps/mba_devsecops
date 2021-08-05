@@ -87,7 +87,7 @@ aws ec2 run-instances \
 2.6. É possível autorizar o acesso na instância ou protocolos específicos usando a API de grupos de segurança:
 
 ```sh
-aws ec2 authorize-security-group-ingress --group-id $SECGRP_ID \
+aws ec2 authorize-security-group-ingress --group-id $AWS_SECGRP_ID \
      --ip-permissions IpProtocol=icmp,FromPort=-1,ToPort=-1,IpRanges='[{CidrIp=0.0.0.0/0}]'
 ```
 
