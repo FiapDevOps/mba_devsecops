@@ -20,7 +20,7 @@ Auditando a conta com CloudTrail + CloudWatch
 
 # Item 1: Configurações do Trail:
 
-1.1. Acesse o console da AWS, no canto superior esquerdo, no menu Services, escolha Cloud Trail dentro do grupo "Management & Governance", ou localize o serviço digitando "Cloud Trail" na barra de busca;
+1.1. Acesse o console da AWS, no canto superior esquerdo, no menu Services, escolha Cloud Trail dentro do grupo **"Management & Governance"**, ou localize o serviço digitando **"Cloud Trail"** na barra de busca;
 
 1.2. Escolha a opção **"Create a trail"**
 
@@ -39,7 +39,7 @@ Um novo recurso de Cloud Trail será criado armazenando logs de operações no B
 
 2.3. Marque a opção "Enabled" no campo **"CloudWatch Logs"**
 
-2.4. Para a função IAM, escolha a opção **"Existing"** e em seguida a Role name **"trailrole"**;
+2.4. Para a função IAM, escolha a opção **"New"** e em seguida coloque a Role name **"trailrole"**;
 
 2.5. Clique em **"Save changes"** para finalizar;
 
@@ -60,6 +60,8 @@ Aprsentando o conceito de buckets e a gerencia de permissões de acesso:
 * Utilize a região padrão mantendo o valor default configurado;
 
 * Não é necessário alterar outras opções ou as políticas do bucket por enquanto;
+
+Na parte inferior do menu clique na opção **"Create Bucket"** para finalizar;
 
 ![BUCKETS](images/CLOUDSERVICES_01.PNG)
 
@@ -127,13 +129,15 @@ Abra uma nova guia do navegador e cole o link com a URL do objeto no campo de en
 
 É possível alterar essa política porém para testarmos outro mecanismo utilizaremos uma política configurada diretamente no bucket:
    
-4.5. Volte a tela do bucket criado, em seguida acesse a guia **"Permissions"**, no campo **Block public access (bucket settings)** clique em **"Edit"** e desmarque a opção **"Block all public access"**, os sub campos desta opção também serão desmarcados nessa etapa, salve as alterações;
+4.5. Volte a tela do bucket criado, em seguida acesse a guia **"Permissions"**, no campo **Block public access (bucket settings)** clique em **"Edit"** e desmarque a opção **"Block all public access"**, os sub-campos desta opção também serão desmarcados nessa etapa, salve as alterações;
     
- > Será necessário digitar a palvra confirm para esta ação
+ > Será necessário digitar a palavra confirm para esta ação;
 
 4.6. Localize o campo **"Bucket Policy"** clique em **"Edit"**
 
 Cole o bloco abaixo criando uma politica explicita de acesso de leitura:
+   
+**IMPORTANTE:** Altere o nome do bucket no exempl oabaixo de acordo com o seu backut atual
 
 ```sh
 {
@@ -165,12 +169,14 @@ Acessando os logs via Monitoração
 
 5.2. Escolha a opção **"Log Groups"** dentro do menu **"Logs**, em seguida localize e selecione o grupo criado, ele possuirá o nome **"aws-cloudtrail-logs-*"**
 
-5.3. Ao clicar sobre o grupo você verá uma interface com todos os eventos gerados pelo trail e armazenados para consulta e gatilhos de monitoração no Cloudwatch, utilize a busca a seguir para filtrar os eventos de alteração em permissões dos buckets:
+5.3. Ao clicar sobre o link do grupo descrito no painel  **"Log Streams"** você verá uma interface com todos os eventos gerados pelo trail e armazenados para consulta e gatilhos de monitoração no Cloudwatch, utilize a busca a seguir para filtrar os eventos de alteração em permissões dos buckets:
 
 ```sh
 { ($.eventSource = s3.amazonaws.com) && (($.eventName = PutBucketAcl) || ($.eventName = PutBucketPolicy) || ($.eventName = DeleteBucketPolicy) || ($.eventName = PutBucketPublicAccessBlock))}
 ```
 
+Através da interface do CloudWatch você verá um Log de evento gerado pelo Cloud Provider, nossa próxima discussão será sobre as melhores práticas para monitorar esse tipo de evento quais as ações ideais em processos de correção e mitigação de risco;
+   
 ---
 
 ##### Fiap - MBA Cyber Security Forensics, Ethical Hacking & DevSecOps
