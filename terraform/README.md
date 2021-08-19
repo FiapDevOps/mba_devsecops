@@ -32,7 +32,7 @@ aws ec2 describe-subnets --query  'Subnets[].[VpcId, AvailabilityZone, CidrBlock
 1.3. Acesse o diretório mba_devsecops/terraform/network e inicialize o serviço:
 
 ```sh
-cd $PWD/mba_devsecops/terraform/network
+cd $HOME/environment/mba_devsecops/terraform/network
 terraform init
 ```
 
@@ -81,7 +81,7 @@ Aceese a console AWS e em seguida selecione o serviço Cloud9, no ambiente **SEG
 2.2. No repositório do projeto acesse o diretório firewall e inicialize o terraform:
 
 ```sh
-cd $PWD/mba_devsecops/terraform/firewall
+cd $HOME/environment/mba_devsecops/terraform/firewall
 terraform init
 ```
 
