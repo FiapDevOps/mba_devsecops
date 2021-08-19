@@ -59,9 +59,9 @@ data "aws_ami" "ubuntu" {
 }
 
 resource "aws_instance" "web_app" {
-  for_each                  = data.aws_subnet_ids.selected.ids
+  for_each                      = data.aws_subnet_ids.selected.ids
     ami                         = data.aws_ami.ubuntu.id
-    instance_type               = "t3a.medium"
+    instance_type               = "t2.medium"
     associate_public_ip_address = true    
     user_data                   = "${file("templates/mediawiki.yaml")}"
     vpc_security_group_ids      = [data.aws_security_group.selected.id]
