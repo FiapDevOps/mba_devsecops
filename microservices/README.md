@@ -154,7 +154,7 @@ curl 127.0.0.1:8080
 
 Ao final do processo faça o login na conta utilizada para este laboratório:
 
-**Para a senha utilize o token enviado pelo professor
+**Para a senha utilize o token enviado pelo professor**
 
 ```sh
 docker login -u fiaplabs
