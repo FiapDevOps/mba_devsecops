@@ -64,7 +64,7 @@ docker ps
 O diretório build dentro deste repositório possui um pequeno exemplo com uma aplicação python: 
 
 ```sh
-app/build
+cat app/build
 
 ├── buzz
 │   ├── generator.py         # The buzz words generator
@@ -80,6 +80,7 @@ Este exemplo será utilizado como ponto de partida para a criação de um contai
 Verifique o conteúdo do arquivo Dockerfile com as etapas do processo de build com base na imagem python do [DockerHub](https://hub.docker.com/_/python):
 
 ```sh
+cd microservices
 cat app/Dockerfile
 ```
 
@@ -113,13 +114,13 @@ docker build . -t ${DOCKER_IMAGE}/app-v0.0.1
 Após o processo de build verifique a imagem criada:
 
 ```sh
-docker images ls
+docker images
 ```
 
 Finalmente crie um novo container com base na imagem e bind na porta 8080:
 
 ```sh
-docker run -d --name app --rm --publish 8080:5000 ${DOCKER_IMAGE}/app-v0.0.1
+docker run -d --name app --rm --publish 8080:5000 ${DOCKER_IMAGE}:app-v0.0.1
 docker ps
 curl 127.0.0.1:8080
 docker kill app
@@ -130,7 +131,7 @@ As imagens são construidas com base na estrutura declarativa do Dockerfile, é 
 Substitua a primeira linha do arquivo Dockerfile alterando a imagem de referência para uma versão baseada no sistema [alpine](https://www.alpinelinux.org/);
 
 ```sh
-sed -i '1c\FROM\:\ python\:3.6-alpine' Dockerfile 
+sed -i '1c\FROM python\:3.6-alpine' Dockerfile 
 cat Dockerfile
 ```
 
@@ -139,40 +140,44 @@ Em seguida faça um novo build do projeto:
 ```sh
 docker build . -t ${DOCKER_IMAGE}/app-v0.0.2
 docker images
+docker ps
+docker kill app
 ```
 
 Troque a versão em execução:
 
 ```sh
-docker run -d --name app --rm --publish 8080:5000 ${DOCKER_IMAGE}/app-v0.0.2
+docker run -d --name app --rm --publish 8080:5000 ${DOCKER_IMAGE}:app-v0.0.2
 docker ps
 curl 127.0.0.1:8080
 ```
 
 Ao final do processo faça o login na conta utilizada para este laboratório:
 
+**Para a senha utilize o token enviado pelo professor
+
 ```sh
-docker login -u fiaplabs <TOKEN>
+docker login -u fiaplabs
 ```
 
 Envie a imagem criada recentemente para o repositório remoto:
 
 ```sh
-docker push fiaplabs/<SEURM>/app-v0.0.2
+docker push ${DOCKER_IMAGE}:app-v0.0.2
 ```
 
 Para revisar o processo de gerencia de vulnerabilidades atualize a imagem do docker:
 
 ```sh
-sed -i '1c\FROM\:\ python\:3.9-alpine' Dockerfile 
+sed -i '1c\FROM python\:3.9-alpine' Dockerfile 
 cat Dockerfile
 ```
 
 Em seguida envie uma nova versão ao repositório:
 
 ```sh
- docker build . -t ${DOCKER_IMAGE}/app-v0.0.3
- docker push ${DOCKER_IMAGE}/app-v0.0.3
+ docker build . -t ${DOCKER_IMAGE}:app-v0.0.3
+ docker push ${DOCKER_IMAGE}:app-v0.0.3
 ```
 
 ## Usando o Kubernetes:
