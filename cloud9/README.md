@@ -1,4 +1,4 @@
-# MBA MBA Cyber Security Forensics, Ethical Hacking & DevSecOps
+# MBA Cyber Security Forensics, Ethical Hacking & DevSecOps
 
 Nesta configuração você fará a preparação da instância que utilizaremos para os laboratórios envolvendo o ambiente AWS;
 
