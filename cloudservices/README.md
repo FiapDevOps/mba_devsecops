@@ -51,11 +51,11 @@ aws s3api list-buckets --region us-east-2 --output text
 
 Na tela seguinte marque a caixa na opção **"Insights events"**
 
-![TRAIL](images/CLOUDTRAIL_01.PNG)
+![TRAIL](images/CLOUDTRAIL_01.png)
 
 Ao fazer isso no item que surgirá no final da tela marque as opções **API call rate** e **API error rate**
 
-![TRAIL](images/CLOUDTRAIL_02.PNG)
+![TRAIL](images/CLOUDTRAIL_02.png)
 
 * Mantenha a opção padrão para os outros campos e clique no botão **Next**, verifique os dados configurados e cliqyue na opção **Create trail**
 
