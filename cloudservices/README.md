@@ -1,18 +1,17 @@
 # Objetivo
 
-Explorar o concieto de Object Storage na AWS configurando um bucket para auditoria de acessos na conta do AWS Educate
+Explorar o concieto de Object Storage na AWS configurando um bucket para auditoria de acessos
 
 ![TRAIL](images/CLOUDSERVICES_00.png)
 
 # Caracteriísticas:
 
-Este laboratório utilizará os recursos da conta AWS Educate para explorar alguns cenários:
+Este laboratório utilizará uma conta AWS para explorar alguns cenários:
 
 - Uso de políticas sobre Buckets e a configuração de objetos com acesso público e privado;
 - Uso de um recurso de trail para centralizar logs sobre ações nas contas da AWS;
 - Uso do CloudWatch para centralizar os eventos armazenados na conta;
-- Proposta do modelo de envio para uma conta de auditoria externa;
-
+- Modelo de envio para uma conta de auditoria externa;
 
 # Primeira Parte
 
@@ -20,20 +19,51 @@ Auditando a conta com CloudTrail + CloudWatch
 
 # Item 1: Configurações do Trail:
 
-1.1. Acesse o console da AWS, no canto superior esquerdo, no menu Services, escolha Cloud Trail dentro do grupo **"Management & Governance"**, ou localize o serviço digitando **"Cloud Trail"** na barra de busca;
+1.1. Para este laboratório utilizaremos buckets individuais por usuário como destino para os Logs de auditoria dos eventos executados na conta da AWS, para isso execute a criação do bucket usando a API da AWS conforme abaixo:
 
-1.2. Escolha a opção **"Create a trail"**
+```sh
+export RM={12345} # Subistitua este valor pelos números do seu RM
+
+aws s3api create-bucket --bucket trail-logs-bucket-$C9_PID-$RM \
+        --region us-east-2 \
+        --create-bucket-configuration LocationConstraint=us-east-2
+```
+
+1.2. Verifique se o bucket foi criado corretamente utilizando a chamada abaixo:
+
+```sh
+aws s3api list-buckets --region us-east-2 --output text
+```
+
+1.2. Ao finalizar o processo acesse o console da AWS, no canto superior esquerdo, no menu Services, escolha Cloud Trail dentro do grupo **"Management & Governance"**, ou localize o serviço digitando **"CloudTrail"** na barra de busca;
+
+1.2.1. Escolha a opção **"Create a trail"**
 
 ![TRAIL](images/CLOUDTRAIL_00.PNG)
 
-* Utilize o nome e as opções default de criação que surgirem na tela seguinte e clique no botão **"Create Trail"**
+* Utilize o nome management-events-{SEURM} (Apenas números);
+* Para a escolha do bucket utilize o bucket criado na etapa anterior;
+* Por enquanto, desabilite a opção **"Log file SSE-KMS encryption"**
+* Habilite o campo **"CloudWatch Logs"** 
+* Para o campo **Log group name** escolha o nome aws-cloudtrail-logs-{SEURM}
+* Para o campo IAM Role escolha o opção **Existing** e a Role name **AWSServiceRoleForCloudTrail**
+* Mantenha a opção padrão para os outros campos e clique no botão **Next**
+
+Na tela seguinte marque a caixa na opção **"Insights events"**
+
+![TRAIL](images/CLOUDTRAIL_01.PNG)
+
+Ao fazer isso no item que surgirá no final da tela marque as opções **API call rate** e **API error rate**
+
+![TRAIL](images/CLOUDTRAIL_02.PNG)
+
+* Mantenha a opção padrão para os outros campos e clique no botão **Next**, verifique os dados configurados e cliqyue na opção **Create trail**
 
 Um novo recurso de Cloud Trail será criado armazenando logs de operações no Bucket indicado no campo **S3 bucket**
 
 # Item 2: Log de eventos ao CloudWatch:
 
 2.1. Abra o console do CloudTrail em [https://console.aws.amazon.com/cloudtrail/](https://console.aws.amazon.com/cloudtrail/)
-
 
 2.2. Clique sobre o recurso de trail criado e na opção **"CloudWatch Logs"** escolha **Edit**;
 
