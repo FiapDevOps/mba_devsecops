@@ -6,16 +6,18 @@ Nesta configuração você fará a preparação da instância que utilizaremos p
 
 1.1. Para configurar automaticamente faça o login na conta da AWS indicada pelo Professor e acesse o pefil indicado, e em seguida clique no link abaixo para disparar o template de automação:
 
-[![cf-template](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=sandbox-sec&templateURL=https://cf-templates-fiaplabs-automation.s3.amazonaws.com/cloud9-ide-with-ec2-small-instance.template.yaml)
+[![cf-template](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=sandbox-sec&templateURL=https://cf-templates-fiaplabs-automation.s3.amazonaws.com/cloud9-ide-with-ec2-instance-terminate.template.yaml)
 
 Um exemplo mais complexo com configuração de vpc dentro do processo pode ser consultado neste [template de cloudformation](https://aws-quickstart.s3.amazonaws.com/quickstart-cloud9-ide/doc/aws-cloud9-cloud-based-ide.pdf)
 
 1.2. Ao finalizar acesse o console do Cloud9, a URL pode ser encontrada na aba Outputs da tela de automação com Cloud Formation, após acessar execute o script de instalção das ferramentas que serão usadas durante os laboratórios:
 
 ```sh
-chmod +x ~/environment/codecommit/scripts/*.sh
+cd ~/environment
+git clone https://github.com/FiapDevOps/mba_devsecops
+chmod +x ~/environment/fiapdevops/mba_devsecops/cloud9/scripts/*.sh
 
-~/environment/codecommit/scripts/config.sh
+~/environment/fiapdevops/mba_devsecops/cloud9//scripts/config.sh
 ```
 
 ---
@@ -55,14 +57,17 @@ Durante o processo de configuração a mensagem **"We are creating your AWS Clou
 2.5. Após finalizar o processo anterior um terminal será exibido dentro do Cloud9, faça uma cópia do [repositório git do laboratório](https://github.com/fiapsecdevops/mba_devsecops) da disciplina;
 
 ```sh
-git clone https://github.com/fiapdevops/cloud9
+cd ~/environment
+git clone https://github.com/FiapDevOps/mba_devsecops
 ```
 
 2.6. Execute o script de instalação das ferramentas que serão usadas durante os laboratórios:
 
+
 ```sh
-sudo bash -x $HOME/environment/cloud9/scripts/resize.sh
-sudo bash -x $HOME/environment/cloud9/scripts/config_seg.sh
+chmod +x ~/environment/fiapdevops/mba_devsecops/cloud9/scripts/*.sh
+
+~/environment/fiapdevops/mba_devsecops/cloud9//scripts/config.sh
 ```
 
 ---
