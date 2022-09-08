@@ -67,7 +67,7 @@ git clone https://github.com/FiapDevOps/mba_devsecops
 ```sh
 chmod +x ~/environment/mba_devsecops/cloud9/scripts/*.sh
 
-~/environment/mba_devsecops/cloud9//scripts/config.sh
+~/environment/mba_devsecops/cloud9/scripts/config.sh
 ```
 
 ---
