@@ -16,38 +16,57 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 3.0"
     }
   }
 }
 
 
+#data "aws_vpc" "my_vpc" {
+#  tags = {
+#    Terraform = "true"
+#    Environment = "dev"
+#  }
+#}
+
 data "aws_vpc" "my_vpc" {
-  tags = {
-    Terraform = "true"
-    Environment = "dev"
-  }
+  default = "true"
 }
 
-# Exemplo 1: Construindo um security group com base no modulo http-80 para liberar ingresso na porta 80 de qualquer origem
-module "web_server_sg" {
-  source = "terraform-aws-modules/security-group/aws//modules/http-80"
+# Exemplo 1: Construindo um security group para liberar ingresso na porta 80 de qualquer origem:
 
-  name        = "web-server"
+resource "aws_security_group" "web_server_sg" {
+
+  name        = "allow_web_server_access"
   description = "Security group with HTTP ports open for everybody (IPv4 CIDR), egress ports are all world open"
-  vpc_id      = data.aws_vpc.my_vpc.id
+  vpc_id      = data.aws_vpc.main.id
+
+  ingress {
+    description      = "Allow HTTP"
+    from_port        = 80
+    to_port          = 80
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
 
   tags = {
+    Name = "allow_web_server_access"
     Terraform = "true"
     Environment = "dev"
     Tier = "FE"
   }
-
-  ingress_cidr_blocks = ["0.0.0.0/0"]
 }
 
 # Exemplo 2: Construindo um security group com dois tipos de regras:
-# 1 Reggra de acesso na mesma porta baseada em três ranges fictios de backends;
+# 1 Reggra de acesso na mesma porta baseada em três ranges ficticios de backends;
 # 2 Regra baseada no acesso a porta 3306 com origem no grupo criado anteriomente;
   
 module "mysql_sg" {
