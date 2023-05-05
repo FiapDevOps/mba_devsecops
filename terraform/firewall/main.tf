@@ -38,7 +38,7 @@ resource "aws_security_group" "web_server_sg" {
 
   name        = "allow_web_server_access"
   description = "Security group with HTTP ports open for everybody (IPv4 CIDR), egress ports are all world open"
-  vpc_id      = data.aws_vpc.main.id
+  vpc_id      = data.aws_vpc.my_vpc.id
 
   ingress {
     description      = "Allow HTTP"
